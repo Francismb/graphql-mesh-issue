@@ -1,0 +1,32 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+directive @grpcMethod(rootJsonName: String, objPath: String, methodName: String, responseStream: Boolean) on FIELD_DEFINITION
+
+directive @grpcConnectivityState(rootJsonName: String, objPath: String) on FIELD_DEFINITION
+
+directive @grpcRootJson(name: String, rootJson: ObjMap, loadOptions: ObjMap) repeatable on OBJECT
+
+type Query @grpcRootJson(name: "Root0", rootJson: "{\"nested\":{\"api\":{\"nested\":{\"TestReq\":{\"fields\":{},\"comment\":null},\"TestResp\":{\"fields\":{},\"comment\":null},\"EventsService\":{\"methods\":{\"createEvent\":{\"requestType\":\"TestReq\",\"responseType\":\"TestResp\",\"comment\":null}},\"comment\":null}}}}}") {
+  api_EventsService_connectivityState(tryToConnect: Boolean): ConnectivityState @grpcConnectivityState(rootJsonName: "Root0", objPath: "api.EventsService")
+}
+
+enum ConnectivityState {
+  IDLE
+  CONNECTING
+  READY
+  TRANSIENT_FAILURE
+  SHUTDOWN
+}
+
+type Mutation {
+  api_EventsService_createEvent(input: api_TestReq_Input): api_TestResp @grpcMethod(rootJsonName: "Root0", objPath: "api.EventsService", methodName: "createEvent", responseStream: false)
+}
+
+scalar api_TestResp @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+scalar api_TestReq_Input @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+scalar ObjMap

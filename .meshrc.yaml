@@ -1,0 +1,6 @@
+sources:
+  - name: api
+    handler:
+      grpc:
+        endpoint: localhost:50551
+        source: ./api.proto

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package api;
+
+message TestReq {}
+message TestResp {}
+
+service EventsService {
+  rpc createEvent(TestReq) returns (TestResp);
+}

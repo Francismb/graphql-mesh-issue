@@ -1,0 +1,17 @@
+{
+  "name": "graphqlmeshissue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "mesh build",
+    "start": "mesh start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-mesh/cli": "^0.83.3",
+    "@graphql-mesh/grpc": "^0.94.2",
+    "graphql": "^16.6.0"
+  }
+}
