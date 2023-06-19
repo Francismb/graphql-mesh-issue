@@ -17,10 +17,10 @@ export type Scalars = {
   String: { input: string; output: string; }
   /** The `Boolean` scalar type represents `true` or `false`. */
   Boolean: { input: boolean; output: boolean; }
+  /** The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   api_TestResp: { input: any; output: any; }
-  api_TestReq_Input: { input: any; output: any; }
   ObjMap: { input: any; output: any; }
 };
 
@@ -46,7 +46,11 @@ export type Mutation = {
 
 
 export type Mutationapi_EventsService_createEventArgs = {
-  input?: InputMaybe<Scalars['api_TestReq_Input']['input']>;
+  input?: InputMaybe<api_TestReq_Input>;
+};
+
+export type api_TestReq_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
 };
 
   export type QuerySdk = {

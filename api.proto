@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package api;
 
-message TestReq {}
+message TestReq {
+  int32 id = 1;
+}
 message TestResp {}
 
 service EventsService {

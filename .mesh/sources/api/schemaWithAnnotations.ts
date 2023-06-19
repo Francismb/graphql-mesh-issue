@@ -216,6 +216,97 @@ const schemaAST = {
       ]
     },
     {
+      "kind": "DirectiveDefinition",
+      "description": {
+        "kind": "StringValue",
+        "value": "Directs the executor to stream plural fields when the `if` argument is true or undefined."
+      },
+      "name": {
+        "kind": "Name",
+        "value": "stream"
+      },
+      "arguments": [
+        {
+          "kind": "InputValueDefinition",
+          "description": {
+            "kind": "StringValue",
+            "value": "Stream when true or undefined.",
+            "block": true
+          },
+          "name": {
+            "kind": "Name",
+            "value": "if"
+          },
+          "type": {
+            "kind": "NonNullType",
+            "type": {
+              "kind": "NamedType",
+              "name": {
+                "kind": "Name",
+                "value": "Boolean"
+              }
+            }
+          },
+          "defaultValue": {
+            "kind": "BooleanValue",
+            "value": true
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "description": {
+            "kind": "StringValue",
+            "value": "Unique name",
+            "block": true
+          },
+          "name": {
+            "kind": "Name",
+            "value": "label"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "String"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "description": {
+            "kind": "StringValue",
+            "value": "Number of items to return immediately",
+            "block": true
+          },
+          "name": {
+            "kind": "Name",
+            "value": "initialCount"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "Int"
+            }
+          },
+          "defaultValue": {
+            "kind": "IntValue",
+            "value": "0"
+          },
+          "directives": []
+        }
+      ],
+      "repeatable": false,
+      "locations": [
+        {
+          "kind": "Name",
+          "value": "FIELD"
+        }
+      ]
+    },
+    {
       "kind": "ObjectTypeDefinition",
       "name": {
         "kind": "Name",
@@ -315,7 +406,7 @@ const schemaAST = {
               },
               "value": {
                 "kind": "StringValue",
-                "value": "{\"nested\":{\"api\":{\"nested\":{\"TestReq\":{\"fields\":{},\"comment\":null},\"TestResp\":{\"fields\":{},\"comment\":null},\"EventsService\":{\"methods\":{\"createEvent\":{\"requestType\":\"TestReq\",\"responseType\":\"TestResp\",\"comment\":null}},\"comment\":null}}}}}"
+                "value": "{\"nested\":{\"api\":{\"nested\":{\"TestReq\":{\"fields\":{\"id\":{\"type\":\"int32\",\"id\":1,\"comment\":null}},\"comment\":null},\"TestResp\":{\"fields\":{},\"comment\":null},\"EventsService\":{\"methods\":{\"createEvent\":{\"requestType\":\"TestReq\",\"responseType\":\"TestResp\",\"comment\":null}},\"comment\":null}}}}}"
               }
             }
           ]
@@ -499,33 +590,29 @@ const schemaAST = {
       ]
     },
     {
-      "kind": "ScalarTypeDefinition",
+      "kind": "InputObjectTypeDefinition",
       "name": {
         "kind": "Name",
         "value": "api_TestReq_Input"
       },
-      "directives": [
+      "fields": [
         {
-          "kind": "Directive",
+          "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "specifiedBy"
+            "value": "id"
           },
-          "arguments": [
-            {
-              "kind": "Argument",
-              "name": {
-                "kind": "Name",
-                "value": "url"
-              },
-              "value": {
-                "kind": "StringValue",
-                "value": "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
-              }
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "Int"
             }
-          ]
+          },
+          "directives": []
         }
-      ]
+      ],
+      "directives": []
     },
     {
       "kind": "ScalarTypeDefinition",

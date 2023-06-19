@@ -9,7 +9,17 @@ directive @grpcConnectivityState(rootJsonName: String, objPath: String) on FIELD
 
 directive @grpcRootJson(name: String, rootJson: ObjMap, loadOptions: ObjMap) repeatable on OBJECT
 
-type Query @grpcRootJson(name: "Root0", rootJson: "{\"nested\":{\"api\":{\"nested\":{\"TestReq\":{\"fields\":{},\"comment\":null},\"TestResp\":{\"fields\":{},\"comment\":null},\"EventsService\":{\"methods\":{\"createEvent\":{\"requestType\":\"TestReq\",\"responseType\":\"TestResp\",\"comment\":null}},\"comment\":null}}}}}") {
+"Directs the executor to stream plural fields when the `if` argument is true or undefined."
+directive @stream(
+  """Stream when true or undefined."""
+  if: Boolean! = true
+  """Unique name"""
+  label: String
+  """Number of items to return immediately"""
+  initialCount: Int = 0
+) on FIELD
+
+type Query @grpcRootJson(name: "Root0", rootJson: "{\"nested\":{\"api\":{\"nested\":{\"TestReq\":{\"fields\":{\"id\":{\"type\":\"int32\",\"id\":1,\"comment\":null}},\"comment\":null},\"TestResp\":{\"fields\":{},\"comment\":null},\"EventsService\":{\"methods\":{\"createEvent\":{\"requestType\":\"TestReq\",\"responseType\":\"TestResp\",\"comment\":null}},\"comment\":null}}}}}") {
   api_EventsService_connectivityState(tryToConnect: Boolean): ConnectivityState @grpcConnectivityState(rootJsonName: "Root0", objPath: "api.EventsService")
 }
 
@@ -27,6 +37,8 @@ type Mutation {
 
 scalar api_TestResp @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
 
-scalar api_TestReq_Input @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+input api_TestReq_Input {
+  id: Int
+}
 
 scalar ObjMap

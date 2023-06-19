@@ -34,10 +34,10 @@ export type Scalars = {
   String: { input: string; output: string; }
   /** The `Boolean` scalar type represents `true` or `false`. */
   Boolean: { input: boolean; output: boolean; }
+  /** The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. */
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   api_TestResp: { input: any; output: any; }
-  api_TestReq_Input: { input: any; output: any; }
   ObjMap: { input: any; output: any; }
 };
 
@@ -63,7 +63,11 @@ export type Mutation = {
 
 
 export type Mutationapi_EventsService_createEventArgs = {
-  input?: InputMaybe<Scalars['api_TestReq_Input']['input']>;
+  input?: InputMaybe<api_TestReq_Input>;
+};
+
+export type api_TestReq_Input = {
+  id?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -157,7 +161,8 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   api_TestResp: ResolverTypeWrapper<Scalars['api_TestResp']['output']>;
-  api_TestReq_Input: ResolverTypeWrapper<Scalars['api_TestReq_Input']['output']>;
+  api_TestReq_Input: api_TestReq_Input;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ObjMap: ResolverTypeWrapper<Scalars['ObjMap']['output']>;
 }>;
@@ -168,7 +173,8 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   Mutation: {};
   api_TestResp: Scalars['api_TestResp']['output'];
-  api_TestReq_Input: Scalars['api_TestReq_Input']['output'];
+  api_TestReq_Input: api_TestReq_Input;
+  Int: Scalars['Int']['output'];
   String: Scalars['String']['output'];
   ObjMap: Scalars['ObjMap']['output'];
 }>;
@@ -197,6 +203,14 @@ export type grpcRootJsonDirectiveArgs = {
 
 export type grpcRootJsonDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = grpcRootJsonDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
+export type streamDirectiveArgs = {
+  if?: Scalars['Boolean']['input'];
+  label?: Maybe<Scalars['String']['input']>;
+  initialCount?: Maybe<Scalars['Int']['input']>;
+};
+
+export type streamDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = streamDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   api_EventsService_connectivityState?: Resolver<Maybe<ResolversTypes['ConnectivityState']>, ParentType, ContextType, Partial<Queryapi_EventsService_connectivityStateArgs>>;
 }>;
@@ -211,10 +225,6 @@ export interface api_TestRespScalarConfig extends GraphQLScalarTypeConfig<Resolv
   name: 'api_TestResp';
 }
 
-export interface api_TestReq_InputScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['api_TestReq_Input'], any> {
-  name: 'api_TestReq_Input';
-}
-
 export interface ObjMapScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ObjMap'], any> {
   name: 'ObjMap';
 }
@@ -224,7 +234,6 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   ConnectivityState?: ConnectivityStateResolvers;
   Mutation?: MutationResolvers<ContextType>;
   api_TestResp?: GraphQLScalarType;
-  api_TestReq_Input?: GraphQLScalarType;
   ObjMap?: GraphQLScalarType;
 }>;
 
@@ -232,6 +241,7 @@ export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
   grpcMethod?: grpcMethodDirectiveResolver<any, any, ContextType>;
   grpcConnectivityState?: grpcConnectivityStateDirectiveResolver<any, any, ContextType>;
   grpcRootJson?: grpcRootJsonDirectiveResolver<any, any, ContextType>;
+  stream?: streamDirectiveResolver<any, any, ContextType>;
 }>;
 
 export type MeshContext = ApiTypes.Context & BaseMeshContext;
